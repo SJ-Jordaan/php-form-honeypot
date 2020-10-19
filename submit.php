@@ -1,0 +1,57 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['btnSubmit'])) {
+	$user = $_SERVER['REMOTE_ADDR'];
+	$honeypot = $_POST['firstname'];
+	if ($honeypot != "") {
+		$result = '<div class="alert alert-danger">' . $user . ' has been blocked from this service due to triggering the honeypot</div>';
+	} else {
+		$result = '<div class="alert alert-success">Thank you for the feedback '. $_POST['txtName'] .'! I will be in touch</div>';
+	}
+}
+
+?>
+
+<head>
+	<link href="style.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="container contact-form">
+		<div class="contact-image">
+			<img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact" />
+		</div>
+		<form method="post" action="submit.php">
+			<h3>Drop Us a Message</h3>
+			<input name="firstname" type="text" id="firstname" class="hide-robot">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<input type="text" name="txtName" class="form-control" placeholder="Your Name *" value="" />
+					</div>
+					<div class="form-group">
+						<input type="text" name="txtEmail" class="form-control" placeholder="Your Email *" value="" />
+					</div>
+					<div class="form-group">
+						<input type="text" name="txtPhone" class="form-control" placeholder="Your Phone Number *" value="" />
+					</div>
+					<div class="form-group">
+						<input type="submit" name="btnSubmit" class="btnContact" value="Send Message" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div>
+						<?php echo $result ?>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
